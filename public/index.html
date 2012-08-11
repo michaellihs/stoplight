@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheets/application.css">
-    <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:700|Droid+Sans:400,700|Pontano+Sans" rel="stylesheet" type="text/css">
 
     <style type="text/css" media="all">
       .wrapper{
@@ -33,7 +33,8 @@
           <a href="<%= build_url %>" target="_TOP"><%= name %></a>
         </h1>
         <p class="status">
-          Build <%= last_build_id %> <strong><%= last_build_status %></strong>
+          <span><%= last_build_id %></span>
+          <span class="build-dot"></span>
           <% if(last_build_time){ %>
             <time class="build-time invisible" datetime="<%= last_build_time %>" title="<%= jQuery.timeago(last_build_time) %>">
               <%= jQuery.timeago(last_build_time) %>

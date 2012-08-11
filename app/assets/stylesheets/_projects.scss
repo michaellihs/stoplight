@@ -1,5 +1,18 @@
 $spacing: 5px;
 
+$age-fresh-color: #5BB83F;
+$age-fresh-lt: 20%;
+$age-minutes-color: #5BB83F;
+$age-minutes-lt: 20%;
+$age-hours-color: #888;
+$age-hours-lt: 0%;
+$age-days-color: #888;
+$age-days-lt: 0%;
+$age-months-color: #ddd;
+$age-months-lt: 0%;
+$age-years-color: #777;
+$age-years-lt: 10%;
+
 #projects-board {
   font-family: 'Yanone Kaffeesatz', sans-serif;
   padding: $spacing;
@@ -8,72 +21,95 @@ $spacing: 5px;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 201px;
+  left: 0px;
+
 
   h1 {
-    a {
-      color: #fff;
+    a{
       text-decoration: none;
     }
   }
+  @include age-coloring('fresh', $age-fresh-color, #888 );
+  @include age-coloring('minutes', $age-minutes-color, #888 );
+  @include age-coloring('hours', $age-hours-color, lighten( $age-hours-color, $age-hours-lt) );
+  @include age-coloring('days', $age-days-color,lighten($age-days-color, $age-days-lt) );
+  @include age-coloring('months', $age-months-color, lighten($age-months-color, $age-months-lt) );
+  @include age-coloring('years', $age-years-color, lighten($age-years-color,  $age-years-lt));
 
   .wrapper {
     float: left;
     position: relative;
 
     article.project {
-      position: absolute;
-      text-align: center;
+        position: absolute;
+        text-align: center;
+        top: $spacing;
+        right: $spacing;
+        bottom: $spacing;
+        left: $spacing;
 
-      top: $spacing;
-      right: $spacing;
-      bottom: $spacing;
-      left: $spacing;
+        &.unknown {
+          @include project-box(white);
+        }
 
-      &.unknown {
-        @include project-box($dark-gray);
+        &.passed {
+          @include project-box(#5BB83F);
+        }
+
+        &.failed {
+          @include project-box(red);
+          h1{
+            // failure overrides freshness of the item!
+            a{
+              color: red;
+            }
+          }
+        }
+
+        &.building {
+          @include project-box(#5BB83F);
+          .build-dot{
+            animation: fade 0.3s alternate infinite ease-in-out;
+            -webkit-animation: fade 0.3s alternate infinite ease-in-out;
+            -moz-animation: fade 0.3s alternate infinite ease-in-out;
+            -ms-animation: fade 0.3s alternate infinite ease-in-out;
+          }
+        }
+
+
+        p.status {
+          margin-top:0.5em;
+          time{
+            margin-left: 2em;
+          }
+        }
       }
-
-      &.success {
-        @include project-box($green);
-      }
-
-      &.failed {
-        @include project-box($red);
-      }
-
-      &.building {
-        @include project-box($yellow);
-        animation: fade 0.5s alternate infinite ease-in-out;
-        -webkit-animation: fade 0.5s alternate infinite ease-in-out;
-        -moz-animation: fade 0.5s alternate infinite ease-in-out;
-        -ms-animation: fade 0.5s alternate infinite ease-in-out;
-      }
-
-      p.status {
-        margin-top: 20px;
-      }
-    }
   }
 }
-
+.build-dot{
+          display: inline-block;
+  width:0.7em;
+  height: 0.7em;
+  @include border-radius(50%);
+  background: white;
+}
 
 @keyframes 'fade' {
   0% { opacity:1.0; }
-  100% { opacity:0.5; }
+  100% { opacity:0.1; }
 }
 
 @-webkit-keyframes 'fade' {
   0% { opacity:1.0; }
-  100% { opacity:0.5; }
+  100% { opacity:0.1; }
 }
 
 @-moz-keyframes 'fade' {
   0% { opacity:1.0; }
-  100% { opacity:0.5; }
+  100% { opacity:0.1; }
 }
 
 @-ms-keyframes 'fade' {
   0% { opacity:1.0; }
-  100% { opacity:0.5; }
+  100% { opacity:0.1; }
 }

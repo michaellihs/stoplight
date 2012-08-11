@@ -1,15 +1,13 @@
 @import 'compass/reset';
 @import 'compass/css3';
+@import 'compass';
 
 // colors
-$green: green;
-$red: #aa0114;
-$yellow: #ffd700;
-$dark-gray: #333333;
+
 
 html, body {
-  background: #eee;
-  background-image: url('../images/background.png');
+  background: #fff;
+  color: #222;
   background-repeat: repeat;
   height: 100%;
   overflow: hidden;
@@ -17,7 +15,7 @@ html, body {
 }
 
 h1 {
-  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   white-space: nowrap;
 }
 

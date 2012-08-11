@@ -26,9 +26,25 @@ class ProjectTileView extends Backbone.View
     @height = opts.height
 
   render:()=>
+    distance = new Date().getTime() - new Date(@model.get('last_build_time')).getTime()
+    seconds = Math.abs(distance) / 1000
+    minutes = seconds / 60
+    hours = minutes / 60
+    days = hours / 24
+    months = days / 30
+    years = days / 365
+
+    age = if years > 1 then 'age-years'
+    else if months > 1 then 'age-months'
+    else if days > 1 then 'age-days'
+    else if hours > 1 then 'age-hours'
+    else if minutes > 1 then 'age-minutes'
+    else 'age-fresh'
+
     @$el.html @template(@model.toJSON())
     @$el.css 'width', "#{@width}%"
     @$el.css 'height', "#{@height}%"
+    @$el.addClass age
     @el
 
 class MiniProjectsView extends Backbone.View
@@ -47,7 +63,7 @@ class ProjectsBoardView extends Backbone.View
   id: 'projects-board'
 
   render: ()=>
-    failed_projects = @model.where last_build_status: 'failed'
+    failed_projects = @model.models
     if failed_projects.length == 0
       v = new ProjectSuccessTileView
       @$el.html(v.render())
@@ -97,6 +113,6 @@ class StoplightView extends Backbone.View
         fontSize: Math.min($element.height() / 4.0, maxCharacterWidth)
         marginTop: $element.height() / 3.0
 
-      $p.css fontSize: parseInt($h1.css('fontSize')) / 4.0
+      $p.css fontSize: parseInt($h1.css('fontSize')) / 1.2
 
 @StoplightView = StoplightView

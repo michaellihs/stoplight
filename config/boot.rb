@@ -15,5 +15,5 @@ Rabl.register!
 require 'application'
 
 require 'logger'
-$logger = Logger.new('log/application.log')
-use Rack::CommonLogger, $logger
+#$logger = Logger.new('log/application.log')
+#use Rack::CommonLogger, $logger

@@ -34,7 +34,7 @@
   Projects = new ProjectCollection;
 
   Projects.comparator = function(p) {
-    return new Date(p.get('last_build_time')).getTime() * -1;
+    return p.get('name');
   };
 
   this.Projects = Projects;

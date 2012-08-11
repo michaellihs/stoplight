@@ -6,6 +6,6 @@ class ProjectCollection extends Backbone.Collection
 
 Projects = new ProjectCollection
 Projects.comparator = (p)->
-  new Date(p.get('last_build_time')).getTime()*-1
+  p.get('name')
 
 @Projects = Projects

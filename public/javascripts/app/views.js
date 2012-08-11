@@ -73,9 +73,19 @@
     };
 
     ProjectTileView.prototype.render = function() {
+      var age, days, distance, hours, minutes, months, seconds, years;
+      distance = new Date().getTime() - new Date(this.model.get('last_build_time')).getTime();
+      seconds = Math.abs(distance) / 1000;
+      minutes = seconds / 60;
+      hours = minutes / 60;
+      days = hours / 24;
+      months = days / 30;
+      years = days / 365;
+      age = years > 1 ? 'age-years' : months > 1 ? 'age-months' : days > 1 ? 'age-days' : hours > 1 ? 'age-hours' : minutes > 1 ? 'age-minutes' : 'age-fresh';
       this.$el.html(this.template(this.model.toJSON()));
       this.$el.css('width', "" + this.width + "%");
       this.$el.css('height', "" + this.height + "%");
+      this.$el.addClass(age);
       return this.el;
     };
 
@@ -129,9 +139,7 @@
     ProjectsBoardView.prototype.render = function() {
       var columns, failed_projects, h, rows, size, v, w,
         _this = this;
-      failed_projects = this.model.where({
-        last_build_status: 'failed'
-      });
+      failed_projects = this.model.models;
       if (failed_projects.length === 0) {
         v = new ProjectSuccessTileView;
         this.$el.html(v.render());
@@ -210,7 +218,7 @@
           marginTop: $element.height() / 3.0
         });
         return $p.css({
-          fontSize: parseInt($h1.css('fontSize')) / 4.0
+          fontSize: parseInt($h1.css('fontSize')) / 1.2
         });
       });
     };
